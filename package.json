@@ -5,7 +5,7 @@
     "main": "server.js",
     "scripts": {
         "build": "tsc -p tsconfig.json",
-        "dev": "npm run services:up && tsx watch ./src/server.ts",
+        "dev": "npm run services:up && NODE_ENV=dev tsx watch ./src/server.ts",
         "test": "npm run services:up && conc 'npm run dev' 'jest --watchAll --verbose'",
         "services:up": "docker compose -f docker-compose.yaml up -d",
         "lint:check": "eslint ./src ./test --ext .ts",
@@ -16,6 +16,7 @@
     "license": "ISC",
     "type": "module",
     "dependencies": {
+        "dotenv": "^17.2.3",
         "fastify": "^5.6.1",
         "pg": "^8.16.3"
     },
@@ -32,6 +33,7 @@
         "eslint": "^9.38.0",
         "globals": "^16.4.0",
         "jest": "^29.7.0",
+        "pino-pretty": "^13.1.2",
         "prettier": "^3.6.2",
         "ts-jest": "^29.4.5",
         "tsx": "^4.20.6",
