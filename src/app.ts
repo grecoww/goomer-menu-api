@@ -1,6 +1,11 @@
 import fastify from 'fastify'
 import routes from './routes/index'
-import { validatorCompiler, serializerCompiler } from 'fastify-zod-openapi'
+import {
+    validatorCompiler,
+    serializerCompiler,
+    RequestValidationError,
+    ResponseSerializationError,
+} from 'fastify-zod-openapi'
 
 const app = fastify({
     logger:
@@ -24,6 +29,22 @@ app.setValidatorCompiler(validatorCompiler)
 app.setSerializerCompiler(serializerCompiler)
 
 app.setErrorHandler((error, request, reply) => {
+    //tratar e logar erro de validacao zod
+    if (error instanceof RequestValidationError) {
+        app.log.warn({ error }, 'Zod validation failed')
+
+        return reply.status(400).send({
+            message: 'Validation failed',
+            errors: error.cause.message,
+        })
+    }
+
+    //logar erro de serializacao zod
+    if (error instanceof ResponseSerializationError) {
+        app.log.error({ error }, 'Zod response serialization failed')
+    }
+
+    //erros genericos
     app.log.error(
         {
             error: {
