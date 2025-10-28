@@ -1,13 +1,15 @@
-import { createDefaultPreset } from 'ts-jest'
+import 'dotenv/config'
 
-const tsJestTransformCfg = createDefaultPreset().transform
-
-/** @type {import("jest").Config} **/
-export default {
-    extensionsToTreatAsEsm: ['.ts'],
+const config = {
+    preset: 'ts-jest/presets/default-esm', // habilita TypeScript + ESM
     testEnvironment: 'node',
-    transform: {
-        ...tsJestTransformCfg,
+    extensionsToTreatAsEsm: ['.ts'],
+    moduleNameMapper: {
+        '^(\\.{1,2}/.*)\\.js$': '$1', // corrige imports .js no TS-ESM
     },
-    testTimeout: 10000,
+    transform: {
+        '^.+\\.ts$': ['ts-jest', { useESM: true }],
+    },
 }
+
+export default config
