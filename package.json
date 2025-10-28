@@ -6,10 +6,12 @@
     "scripts": {
         "build": "tsc -p tsconfig.json",
         "dev": "npm run services:up && NODE_ENV=dev tsx watch ./src/server.ts",
-        "test": "npm run services:up && conc 'npm run dev' 'jest --watchAll --verbose'",
+        "test": "npm run services:up && concurrently -P --names 'dev, jest' --hide 'dev' 'npm run dev' 'NODE_OPTIONS=--experimental-vm-modules jest --runInBand --verbose {@}' -- ",
         "services:up": "docker compose -f docker-compose.yaml up -d",
         "lint:check": "eslint ./src ./test --ext .ts",
-        "style:check": "prettier --check 'src/**/*.ts' 'test/**/*.ts'"
+        "style:check": "prettier --check 'src/**/*.ts' 'test/**/*.ts'",
+        "migrations:create": "node-pg-migrate -m infra/migrations create",
+        "migrations:up": "node-pg-migrate -m infra/migrations --envPath .env up"
     },
     "keywords": [],
     "author": "",
@@ -18,6 +20,7 @@
     "dependencies": {
         "dotenv": "^17.2.3",
         "fastify": "^5.6.1",
+        "node-pg-migrate": "^8.0.3",
         "pg": "^8.16.3"
     },
     "devDependencies": {
@@ -25,6 +28,7 @@
         "@types/async-retry": "^1.4.9",
         "@types/jest": "^30.0.0",
         "@types/node": "^24.9.1",
+        "@types/node-pg-migrate": "^2.3.1",
         "@types/pg": "^8.15.5",
         "@typescript-eslint/eslint-plugin": "^8.46.2",
         "@typescript-eslint/parser": "^8.46.2",
