@@ -7,15 +7,15 @@ beforeAll(async () => {
     await orchestrator.runPendingMigrations()
 })
 
+const productInfo: ProductInput = {
+    name: 'Cervejinha',
+    price_cents: 1500,
+    category: 'bebidas',
+    visibility: true,
+}
+
 describe('Product creation', () => {
     test('Create valid product in db', async () => {
-        const productInfo: ProductInput = {
-            name: 'Cervejinha',
-            price_cents: 1500,
-            category: 'bebidas',
-            visibility: true,
-        }
-
         const response = await fetch('http://localhost:3000/products', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },

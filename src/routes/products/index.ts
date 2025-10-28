@@ -1,11 +1,14 @@
 import product from '../../models/product'
-import { ProductInputSchema } from '../../schemas/products'
+import {
+    ProductCreationSchema,
+    ProductListSchema,
+} from '../../schemas/products'
 import type { FastifyPluginAsyncZodOpenApi } from 'fastify-zod-openapi'
 
 const plugin: FastifyPluginAsyncZodOpenApi = async (app) => {
     app.post(
         '/products',
-        { schema: ProductInputSchema },
+        { schema: ProductCreationSchema },
         async (request, reply) => {
             const userInputValues = request.body
             const createdProduct = await product.create(userInputValues)
@@ -13,6 +16,12 @@ const plugin: FastifyPluginAsyncZodOpenApi = async (app) => {
             reply.status(201).send(createdProduct)
         }
     )
+
+    app.get('/products', { schema: ProductListSchema }, async (_, reply) => {
+        const productList = await product.list()
+
+        reply.status(200).send(productList)
+    })
 }
 
 export default plugin

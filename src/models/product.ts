@@ -10,6 +10,7 @@ async function create(userInputValues: ProductInput) {
             ($1,$2,$3,$4)
                 RETURNING
                     *
+                ;
             `,
         values: [
             userInputValues.name,
@@ -22,8 +23,27 @@ async function create(userInputValues: ProductInput) {
     return response.rows[0]
 }
 
+async function list() {
+    const response = await database.query(`
+        SELECT
+         * 
+        from 
+        products
+        ;
+        `)
+
+    return response.rows
+}
+
+async function update() {}
+
+async function remove() {}
+
 const product = {
     create,
+    list,
+    update,
+    remove,
 }
 
 export default product
