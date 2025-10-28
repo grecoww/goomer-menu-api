@@ -1,7 +1,7 @@
 import database from '../../infra/database'
-import type { ProductInput } from '../schemas/products'
+import type { CompleteProduct, ProductInput } from '../schemas/products'
 
-async function create(userInputValues: ProductInput) {
+async function create(userInputValues: ProductInput): Promise<CompleteProduct> {
     const response = await database.query({
         text: `INSERT INTO 
                 products
@@ -23,7 +23,7 @@ async function create(userInputValues: ProductInput) {
     return response.rows[0]
 }
 
-async function list() {
+async function list(): Promise<CompleteProduct[]> {
     const response = await database.query(`
         SELECT
          * 
@@ -35,9 +35,46 @@ async function list() {
     return response.rows
 }
 
-async function update() {}
+async function update(
+    id: number,
+    userInputValues: Partial<ProductInput>
+): Promise<CompleteProduct | null> {
+    const fields = []
+    const values = []
+    let idx = 1
 
-async function remove() {}
+    for (const [key, value] of Object.entries(userInputValues)) {
+        fields.push(`${key} = $${idx}`)
+        values.push(value)
+        idx++
+    }
+    values.push(id)
+
+    const response = await database.query({
+        text: `
+            UPDATE products
+            SET ${fields.join(', ')}
+            WHERE id = $${idx}
+            RETURNING *;
+        `,
+        values,
+    })
+
+    return response.rows[0] || null
+}
+
+async function remove(id: number): Promise<boolean> {
+    const response = await database.query({
+        text: `
+            DELETE FROM products
+            WHERE id = $1
+            RETURNING id;
+        `,
+        values: [id],
+    })
+
+    return (response.rowCount ?? 0) > 0
+}
 
 const product = {
     create,
