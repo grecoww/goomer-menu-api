@@ -1,7 +1,7 @@
 import { Client } from 'pg'
 import type { QueryConfig, QueryResult } from 'pg'
 
-async function query(queryObject: QueryConfig): Promise<QueryResult> {
+async function query(queryObject: QueryConfig | string): Promise<QueryResult> {
     let client
     try {
         client = await getNewClient()
@@ -13,10 +13,6 @@ async function query(queryObject: QueryConfig): Promise<QueryResult> {
 }
 
 async function getNewClient() {
-    console.log(
-        process.env.POSTGRES_PASSWORD,
-        typeof process.env.POSTGRES_PASSWORD
-    )
     const client = new Client({
         host: process.env.POSTGRES_HOST,
         port: Number(process.env.POSTGRES_PORT),
