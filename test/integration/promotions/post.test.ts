@@ -75,6 +75,19 @@ describe('Promotion creation', () => {
         expect(response.status).toBe(400)
     })
 
+    test('Create promotion with invalid minutes', async () => {
+        const response = await fetch('http://localhost:3000/promotions', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                ...promotionInfo,
+                start_time: '20:16:00',
+            }),
+        })
+
+        expect(response.status).toBe(400)
+    })
+
     test('Create promotion with empty body returns 400', async () => {
         const response = await fetch('http://localhost:3000/promotions', {
             method: 'POST',
