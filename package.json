@@ -6,7 +6,7 @@
     "scripts": {
         "build": "tsc -p tsconfig.json",
         "dev": "npm run services:up && NODE_ENV=dev tsx watch ./src/server.ts",
-        "test": "npm run services:up && concurrently -P --names 'dev, jest' --hide 'dev' 'npm run dev' 'NODE_OPTIONS=--experimental-vm-modules jest --runInBand --verbose {@}' -- ",
+        "test": "npm run services:up && concurrently -P --names 'dev, jest' --hide 'dev' 'npm run dev' 'NODE_OPTIONS=--experimental-vm-modules jest --runInBand --watchAll --verbose {@}' -- ",
         "services:up": "docker compose -f docker-compose.yaml up -d",
         "lint:check": "eslint ./src ./test --ext .ts",
         "style:check": "prettier --check 'src/**/*.ts' 'test/**/*.ts'",
@@ -18,10 +18,13 @@
     "license": "ISC",
     "type": "module",
     "dependencies": {
+        "@fastify/swagger": "^9.5.2",
         "dotenv": "^17.2.3",
         "fastify": "^5.6.1",
+        "fastify-zod-openapi": "^5.5.0",
         "node-pg-migrate": "^8.0.3",
-        "pg": "^8.16.3"
+        "pg": "^8.16.3",
+        "zod": "^4.1.12"
     },
     "devDependencies": {
         "@eslint/js": "^9.38.0",

@@ -1,5 +1,6 @@
 import fastify from 'fastify'
 import routes from './routes/index'
+import { validatorCompiler, serializerCompiler } from 'fastify-zod-openapi'
 
 const app = fastify({
     logger:
@@ -17,6 +18,10 @@ const app = fastify({
 })
 
 app.register(routes)
+
+//zod setup
+app.setValidatorCompiler(validatorCompiler)
+app.setSerializerCompiler(serializerCompiler)
 
 app.setErrorHandler((error, request, reply) => {
     app.log.error(
