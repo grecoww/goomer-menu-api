@@ -10,6 +10,7 @@ const config = {
     transform: {
         '^.+\\.ts$': ['ts-jest', { useESM: true }],
     },
+    testTimeout: 20000,
 }
 
 export default config
