@@ -30,4 +30,14 @@ describe('Product creation', () => {
         expect(Date.parse(data.created_at)).not.toBeNaN()
         expect(Date.parse(data.updated_at)).not.toBeNaN()
     })
+
+    test('Create two products with same case-insensitive name', async () => {
+        const response = await fetch('http://localhost:3000/products', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ ...productInfo, name: 'cervejinha' }),
+        })
+
+        expect(response.status).toBe(500)
+    })
 })

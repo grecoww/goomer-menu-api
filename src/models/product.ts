@@ -2,6 +2,15 @@ import database from '../../infra/database'
 import type { CompleteProduct, ProductInput } from '../schemas/products'
 
 async function create(userInputValues: ProductInput): Promise<CompleteProduct> {
+    const existing = await database.query({
+        text: `SELECT 1 FROM products WHERE LOWER(name) = LOWER($1)`,
+        values: [userInputValues.name],
+    })
+
+    if ((existing.rowCount ?? 0) > 0) {
+        throw new Error('Product with this name already exists')
+    }
+
     const response = await database.query({
         text: `INSERT INTO 
                 products
