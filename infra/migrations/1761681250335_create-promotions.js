@@ -60,6 +60,10 @@ export const up = (pgm) => {
             default: pgm.func('now()'),
         },
     })
+
+    pgm.addConstraint('promotions', 'check_end_time_after_start_time', {
+        check: 'end_time > start_time',
+    })
 }
 
 export const down = false

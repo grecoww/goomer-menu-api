@@ -36,6 +36,20 @@ describe('Promotion creation', () => {
         expect(response.status).toBe(500)
     })
 
+    test('Create promotion with start_time>end_time', async () => {
+        const response = await fetch('http://localhost:3000/promotions', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                ...promotionInfo,
+                start_time: promotionInfo.end_time,
+                end_time: promotionInfo.start_time,
+            }),
+        })
+
+        expect(response.status).toBe(400)
+    })
+
     test('Create valid promotion in db', async () => {
         await product.create(productInfo1)
         const response = await fetch('http://localhost:3000/promotions', {
