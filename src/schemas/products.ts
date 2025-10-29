@@ -18,7 +18,7 @@ const ProductInputSchema = z
     .strict()
 export type ProductInput = z.infer<typeof ProductInputSchema>
 
-const CompleteProductSchema = ProductInputSchema.extend({
+export const CompleteProductSchema = ProductInputSchema.extend({
     id: z.int().min(1),
     created_at: z.date(),
     updated_at: z.date(),

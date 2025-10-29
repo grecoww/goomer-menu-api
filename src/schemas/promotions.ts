@@ -20,10 +20,14 @@ const PromotionInputSchema = z
         start_time: z.string().regex(/^([01]\d|2[0-3]):(00|15|30|45):(00)$/),
         end_time: z.string().regex(/^([01]\d|2[0-3]):(00|15|30|45):(00)$/),
     })
+    .refine(({ start_time, end_time }) => end_time > start_time, {
+        message: 'end_time must be greater than start_time',
+        path: ['end_time'],
+    })
     .strict()
 export type PromotionInput = z.infer<typeof PromotionInputSchema>
 
-const CompletePromotionSchema = PromotionInputSchema.extend({
+export const CompletePromotionSchema = PromotionInputSchema.safeExtend({
     id: z.int().min(1),
     created_at: z.date(),
     updated_at: z.date(),
