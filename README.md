@@ -59,3 +59,6 @@ Suba o servidor web e acesse:
 Comparar horários no PostgreSQL exigiu atenção para garantir que promoções aparecessem apenas dentro do intervalo correto, levando em conta a timezone. Foi uma das maiores dificuldades encontradas no desafio.
 
 A modelagem do banco de dados foi uma decisão bem dificil de tomar visto as regras de negócio específicas do problema, talvez vendo agora o sistema como um todo, teriam escolhas melhores de modelagem que favoreceriam a eficiência e facilidade.
+
+Durante o período do desafio, acabei ficando doente e só consegui começar a programar nos dois últimos dias.
+Isso limitou um pouco o tempo disponível e acelerou bastante o desenvolvimento. Mesmo assim, procurei focar em demonstrar minha forma de pensar, estruturar e resolver problemas com qualidade.
