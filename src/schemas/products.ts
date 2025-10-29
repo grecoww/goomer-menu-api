@@ -36,6 +36,7 @@ export const ProductCreationSchema = {
             },
         },
     },
+    tags: ['Products'],
 } satisfies FastifyZodOpenApiSchema
 
 export const ProductListSchema = {
@@ -48,6 +49,7 @@ export const ProductListSchema = {
             },
         },
     },
+    tags: ['Products'],
 } satisfies FastifyZodOpenApiSchema
 
 export const ProductUpdateSchema = {
@@ -82,6 +84,7 @@ export const ProductUpdateSchema = {
             },
         },
     },
+    tags: ['Products'],
 } satisfies FastifyZodOpenApiSchema
 
 export const ProductRemoveSchema = {
@@ -106,4 +109,5 @@ export const ProductRemoveSchema = {
             },
         },
     },
+    tags: ['Products'],
 } satisfies FastifyZodOpenApiSchema

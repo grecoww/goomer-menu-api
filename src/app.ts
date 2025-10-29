@@ -6,6 +6,8 @@ import {
     RequestValidationError,
     ResponseSerializationError,
 } from 'fastify-zod-openapi'
+import fastifySwagger from '@fastify/swagger'
+import fastifySwaggerUi from '@fastify/swagger-ui'
 
 const app = fastify({
     logger:
@@ -20,6 +22,23 @@ const app = fastify({
                   },
               }
             : true,
+})
+
+//swagger setup
+app.register(fastifySwagger, {
+    openapi: {
+        info: {
+            title: 'Goomer Menu API',
+            version: '1.0.0',
+        },
+    },
+})
+app.register(fastifySwaggerUi, {
+    routePrefix: '/docs',
+    uiConfig: {
+        docExpansion: 'full',
+        deepLinking: false,
+    },
 })
 
 app.register(routes)

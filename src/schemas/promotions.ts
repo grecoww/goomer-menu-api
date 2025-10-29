@@ -45,6 +45,7 @@ export const PromotionCreationSchema = {
             },
         },
     },
+    tags: ['Promotions'],
 } satisfies FastifyZodOpenApiSchema
 
 export const PromotionListSchema = {
@@ -57,6 +58,7 @@ export const PromotionListSchema = {
             },
         },
     },
+    tags: ['Promotions'],
 } satisfies FastifyZodOpenApiSchema
 
 export const PromotionUpdateSchema = {
@@ -91,6 +93,7 @@ export const PromotionUpdateSchema = {
             },
         },
     },
+    tags: ['Promotions'],
 } satisfies FastifyZodOpenApiSchema
 
 export const PromotionRemoveSchema = {
@@ -115,4 +118,5 @@ export const PromotionRemoveSchema = {
             },
         },
     },
+    tags: ['Promotions'],
 } satisfies FastifyZodOpenApiSchema

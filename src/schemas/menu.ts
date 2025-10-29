@@ -23,6 +23,7 @@ const CompleteMenuSchema = z.array(MenuItem)
 export type CompleteMenu = z.infer<typeof CompleteMenuSchema>
 
 export const MenuResponseSchema = {
+    tags: ['Menu'],
     response: {
         200: {
             content: {
