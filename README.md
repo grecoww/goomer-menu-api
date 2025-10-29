@@ -51,3 +51,11 @@ npm test
 
 Suba o servidor web e acesse:
 [http://localhost:3000/docs](http://localhost:3000/docs)
+
+# Discussão
+
+## Desafios e dificuldades
+
+Comparar horários no PostgreSQL exigiu atenção para garantir que promoções aparecessem apenas dentro do intervalo correto, levando em conta a timezone. Foi uma das maiores dificuldades encontradas no desafio.
+
+A modelagem do banco de dados foi uma decisão bem dificil de tomar visto as regras de negócio específicas do problema, talvez vendo agora o sistema como um todo, teriam escolhas melhores de modelagem que favoreceriam a eficiência e facilidade.
